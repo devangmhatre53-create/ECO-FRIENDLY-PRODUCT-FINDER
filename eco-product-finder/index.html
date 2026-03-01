@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover environmentally friendly products and see their carbon footprint impact. Eco-Friendly Product Finder." />
+  <title>Eco-Friendly Product Finder — Discover Green Products</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z"/>
+          <path d="M12 8v4M10 10h4"/>
+        </svg>
+        Eco Product Finder
+      </a>
+      <nav aria-label="Main navigation">
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="admin.html">Admin</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="btn-icon" id="theme-toggle" aria-label="Toggle dark or light mode">
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1>Eco-Friendly Product Finder</h1>
+        <p class="hero-tagline">Discover environmentally friendly products and see their carbon footprint impact. Shop green, live green.</p>
+        <form id="hero-search-form" class="hero-search" role="search" aria-label="Search products">
+          <div class="search-input-wrap">
+            <label for="hero-search-input" class="visually-hidden">Search products</label>
+            <input type="search" id="hero-search-input" name="q" placeholder="Search products..." autocomplete="off" />
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Featured Eco Products</h2>
+        <p class="section-subtitle">Hand-picked sustainable products with low carbon footprint.</p>
+        <div id="featured-products" class="product-grid stagger-children"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-subtitle">Find products that match your lifestyle.</p>
+        <div class="category-grid stagger-children">
+          <a href="products.html?category=reusable" class="category-card">
+            <div class="icon-wrap" aria-hidden="true">🔄</div>
+            <h3>Reusable</h3>
+          </a>
+          <a href="products.html?category=organic-skincare" class="category-card">
+            <div class="icon-wrap" aria-hidden="true">🌿</div>
+            <h3>Organic Skincare</h3>
+          </a>
+          <a href="products.html?category=sustainable-fashion" class="category-card">
+            <div class="icon-wrap" aria-hidden="true">👕</div>
+            <h3>Sustainable Fashion</h3>
+          </a>
+          <a href="products.html?category=eco-home" class="category-card">
+            <div class="icon-wrap" aria-hidden="true">🏠</div>
+            <h3>Eco Home</h3>
+          </a>
+          <a href="products.html?category=zero-waste-kitchen" class="category-card">
+            <div class="icon-wrap" aria-hidden="true">🥄</div>
+            <h3>Zero Waste Kitchen</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Eco-Friendly Product Finder — Portfolio project. Green theme, responsive design, carbon footprint awareness.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    (function () {
+      const products = getStoredProducts();
+      const featured = products.slice(0, 4);
+      const container = document.getElementById('featured-products');
+      if (!container) return;
+      featured.forEach(function (p, i) {
+        const card = renderProductCard(p, 'product-detail.html');
+        card.style.animationDelay = (i * 0.08) + 's';
+        container.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>

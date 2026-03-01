@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Admin dashboard for Eco-Friendly Product Finder." />
+  <title>Admin Dashboard — Eco-Friendly Product Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M12 22c4-4 8-7.5 8-12a8 8 0 1 0-16 0c0 4.5 4 8 8 12z"/>
+          <path d="M12 8v4M10 10h4"/>
+        </svg>
+        Eco Product Finder
+      </a>
+      <nav aria-label="Main navigation">
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="admin.html" aria-current="page">Admin</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="btn-icon" id="theme-toggle" aria-label="Toggle dark or light mode">
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div id="admin-gate" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+        <p>Checking access...</p>
+      </div>
+      <div id="admin-dashboard" style="display: none;">
+        <div class="admin-header">
+          <h1>Admin Dashboard</h1>
+          <button type="button" class="btn btn-primary" id="admin-add-product">Add product</button>
+        </div>
+
+        <h2 class="section-title mt-2">Products</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table" aria-label="Products list">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Eco score</th>
+                <th>Carbon (kg)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-tbody"></tbody>
+          </table>
+        </div>
+
+        <h2 class="section-title mt-2">Categories</h2>
+        <div class="admin-table-wrap">
+          <table class="admin-table" aria-label="Categories list">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-categories-tbody"></tbody>
+          </table>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm mt-2" id="admin-add-category">Add category</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Product add/edit modal -->
+  <div id="product-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" hidden>
+    <div class="modal-box">
+      <h2 id="product-modal-title">Add product</h2>
+      <form id="product-form">
+        <input type="hidden" id="product-id" name="id" />
+        <div class="form-group">
+          <label for="product-name">Name</label>
+          <input type="text" id="product-name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="product-category">Category</label>
+          <select id="product-category" name="category" required></select>
+        </div>
+        <div class="form-group">
+          <label for="product-price">Price</label>
+          <input type="number" id="product-price" name="price" required step="0.01" min="0" />
+        </div>
+        <div class="form-group">
+          <label for="product-ecoScore">Eco score (1–10)</label>
+          <input type="number" id="product-ecoScore" name="ecoScore" required min="1" max="10" />
+        </div>
+        <div class="form-group">
+          <label for="product-carbonKg">Carbon (kg CO₂)</label>
+          <input type="number" id="product-carbonKg" name="carbonKg" required step="0.1" min="0" />
+        </div>
+        <div class="form-group">
+          <label for="product-image">Image URL</label>
+          <input type="url" id="product-image" name="image" placeholder="https://..." />
+        </div>
+        <div class="form-group">
+          <label for="product-description">Description</label>
+          <textarea id="product-description" name="description"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="product-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Category add modal -->
+  <div id="category-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="category-modal-title" hidden>
+    <div class="modal-box">
+      <h2 id="category-modal-title">Add category</h2>
+      <form id="category-form">
+        <div class="form-group">
+          <label for="category-id">ID (lowercase, no spaces)</label>
+          <input type="text" id="category-id" name="id" required pattern="[a-z0-9-]+" placeholder="e.g. eco-tech" />
+        </div>
+        <div class="form-group">
+          <label for="category-name">Name</label>
+          <input type="text" id="category-name" name="name" required placeholder="Eco Tech" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="category-modal-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
